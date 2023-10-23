@@ -6,6 +6,8 @@ rm(list=ls())
 
 #Input: contains one colum for each feature
 dataset<-"SampleDataSet.csv"
+
+#Output: the reduced-feature dataset
 output_dataset<-"SampleDataSet_reduced.csv"
 
 #####PARAMETERS#####
