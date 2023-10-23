@@ -63,17 +63,17 @@ if (scale_data){
 
 cat("Computing PCA...\n")
 #### 2) compute the correlation matrix
-cor.matrix <- cor(df.scaled, use="na.or.complete")
+#old code to do eigenvalue extraction by hand
+#cor.matrix <- cor(df.scaled, use="na.or.complete")
+#eigenv <- eigen(cor.matrix)
+#eigenvectors<-eigenv$vectors
+#eigenvalues<-eigenv$values
 
 pc <- prcomp(df.scaled,
              center = F,
              scale. = F)
 
 #### 3) get the eigenvectors and values
-eigenv <- eigen(cor.matrix)
-eigenvectors<-eigenv$vectors
-eigenvalues<-eigenv$values
-
 eigenvectors<-as.matrix(pc$rotation)
 eigenvalues<-pc$sdev
 importance<-as.vector(summary(pc)$importance[2,])
