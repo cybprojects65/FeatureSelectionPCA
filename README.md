@@ -5,8 +5,9 @@ An R script demonstrating how to do feature selection with PCA.
 ## Input:
 
 - A CSV file with one feature per column and vectors on the rows (dataset<-"SampleDataSet.csv")
-- The option to scale the data (scale_data<-T): the default is True A
-- A  threshold to select the Principal Components (PCs) explaining the
+- The option to scale the data (scale_data<-T): the default is True 
+- The option to center the data around 0 (center_data<-F): the default is False. This parameter is overwritten by scale_data (if scale_data is true)
+- A threshold to select the Principal Components (PCs) explaining the
    covariance in the data: The default is 95% of the covariance
    (eigenvector_threshold<-0.95)
  - A threshold to select the features explaining the PCs: The default is 80% of the PCs
