@@ -15,6 +15,8 @@ output_dataset<-"SampleDataSet_reduced.csv"
 demo<-F
 #scale the data: to use only if the variable ranges are too different
 scale_data<-T
+#center the data: to center all data around 0 for fair comparison - overwritten by scale_data
+center_data<-F
 #select the PCs explaining up to 95% of the variance
 eigenvector_threshold<-0.95
 #select the variables contributing to 80% of the PCs
@@ -25,6 +27,7 @@ plot<-F
 if (demo){
   cat("Simulating data...\n")
   scale_data<-F
+  center_data<-F
   nr.points<-10000
   small<-runif(250,min=0,max=1) #rnorm(nr.points,mean = 1, sd = 0.01)
   large<-runif(250,min=0,max=250)#rnorm(nr.points,mean = 10, sd = 10)
@@ -59,6 +62,12 @@ if (scale_data){
   df.sub<-sweep(dfm, 2, df.means,FUN = "-")
   df.sd<-apply(df,2,sd)
   df.scaled<-sweep(df.sub, 2, df.sd, FUN = "/")
+}else if (center_data){
+  cat("Centering data...\n")
+  df.means<-as.vector(t(colMeans(df)))
+  dfm<-as.matrix(df)
+  df.sub<-sweep(dfm, 2, df.means,FUN = "-")
+  df.scaled<-df.sub
 }else{
   df.scaled<-as.matrix(df)
 }
@@ -66,8 +75,8 @@ if (scale_data){
 cat("Computing PCA...\n")
 #### 2) compute the correlation matrix
 #old code to do eigenvalue extraction by hand
-#cor.matrix <- cor(df.scaled, use="na.or.complete")
-#eigenv <- eigen(cor.matrix)
+#cov.matrix <- cov(df.scaled, use="na.or.complete")
+#eigenv <- eigen(cov.matrix)
 #eigenvectors<-eigenv$vectors
 #eigenvalues<-eigenv$values
 
